@@ -35,3 +35,25 @@ if (!function_exists('base_path')) {
         return dirname(__DIR__) . '/../' . $path;
     }
 }
+
+if (!function_exists('config_path')) {
+    function config_path()
+    {
+        return base_path('config/');
+    }
+}
+
+if (!function_exists('config')) {
+    function config($key = null, $default = null)
+    {
+        if (is_null($key)) {
+            return app()->config;
+        }
+
+        if (is_array($key)) {
+            return app()->config->set($key);
+        }
+
+        return app()->config->get($key, $default);
+    }
+}
