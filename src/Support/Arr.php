@@ -197,4 +197,13 @@ class Arr
     {
         static::set($array, $key, null);
     }
+
+    public static function containsInstanceOf(array $array, string $className) {
+        foreach ($array as $element) {
+            if ($element instanceof $className) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
