@@ -2,6 +2,9 @@
 
 namespace Mahmoud\ScandiwebTask;
 
+use Mahmoud\ScandiwebTask\Database\DB;
+use Mahmoud\ScandiwebTask\Database\Managers\MySQLManager;
+use Mahmoud\ScandiwebTask\Database\Managers\SQLiteManager;
 use Mahmoud\ScandiwebTask\Http\Request;
 use Mahmoud\ScandiwebTask\Http\Response;
 use Mahmoud\ScandiwebTask\Http\Route;
@@ -17,12 +20,15 @@ class Application
 
     protected Config $config;
 
+    protected DB $db;
+
     public function __construct()
     {
         $this->request = new Request;
         $this->response = new Response;
         $this->route = new Route($this->request, $this->response);
         $this->config = new Config($this->loadConfigrations());
+        $this->db = new DB($this->getDatabaseDriver());
     }
 
     protected function loadConfigrations()
@@ -38,8 +44,21 @@ class Application
         }
     }
 
+    protected function getDatabaseDriver()
+    {
+        switch (env('DB_CONNECTION')) {
+            case 'mysql':
+                return new MySQLManager;
+            case 'sqlite':
+                return new SQLiteManager;
+            default:
+                return new MySQLManager;
+        }
+    }
+
     public function run()
     {
+        $this->db->init();
         $this->route->resolve();
     }
 
