@@ -3,8 +3,9 @@
 namespace Mahmoud\ScandiwebTask\Database\Grammars;
 
 use App\Models\Model;
+use Mahmoud\ScandiwebTask\Database\Grammars\Contracts\DatabaseGrammar;
 
-class MySQLGrammar
+class MySQLGrammar implements DatabaseGrammar
 {
     public static function buildSelectQuery($columns = "*", $table, $filters = null)
     {
@@ -12,7 +13,7 @@ class MySQLGrammar
             $columns = implode(', ', $columns);
         }
 
-        $query = "SELECT {$columns} FROM `{$table}`" ;
+        $query = "SELECT {$columns} FROM `{$table}`";
 
         if (!empty($filters)) {
             $query .= ' WHERE ';
@@ -105,8 +106,8 @@ class MySQLGrammar
     {
         return " OFFSET {$offset}";
     }
-    
-	public static function buildInsertQuery($table, $keys)
+
+    public static function buildInsertQuery($table, $keys)
     {
         $query = "INSERT INTO {$table} (`" . implode('`, `', $keys) . '`) VALUES (';
 
@@ -118,8 +119,8 @@ class MySQLGrammar
 
         return $query;
     }
-    
-	public static function buildUpdateQuery($table, $keys, $column = null)
+
+    public static function buildUpdateQuery($table, $keys, $column = null)
     {
         $query = "UPDATE {$table} SET ";
 
@@ -135,8 +136,8 @@ class MySQLGrammar
 
         return $query;
     }
-    
-	public static function buildDeleteQuery($table, $column = null)
+
+    public static function buildDeleteQuery($table, $column = null)
     {
         $query = "DELETE FROM {$table}";
 
