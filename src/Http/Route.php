@@ -2,6 +2,7 @@
 
 namespace Mahmoud\ScandiwebTask\Http;
 
+use ReflectionFunction;
 use ReflectionMethod;
 
 class Route
@@ -95,7 +96,7 @@ class Route
 
     protected function resolveMethodParameters($action, $params)
     {
-        $reflection = is_array($action) ? new ReflectionMethod($action[0], $action[1]) : new ReflectionMethod($action);
+        $reflection = is_array($action) ? new ReflectionMethod($action[0], $action[1]) : new ReflectionFunction($action);
         $resolvedParams = [];
 
         foreach ($reflection->getParameters() as $parameter) {

@@ -4,6 +4,7 @@ namespace Mahmoud\ScandiwebTask\Validation;
 
 use Mahmoud\ScandiwebTask\Validation\Rules\AlphaNumericalRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\BetweenRule;
+use Mahmoud\ScandiwebTask\Validation\Rules\ExistsRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\FloatRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\IntegerRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\MaxRule;
@@ -12,10 +13,11 @@ use Mahmoud\ScandiwebTask\Validation\Rules\NullableRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\NumericRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\RequiredRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\StringRule;
+use Mahmoud\ScandiwebTask\Validation\Rules\UniqueRule;
 
 trait RulesMapper
 {
-	protected static array $ruleMap = [
+    protected static array $ruleMap = [
         'nullable' => NullableRule::class,
         'required' => RequiredRule::class,
         'alnum' => AlphaNumericalRule::class,
@@ -26,6 +28,8 @@ trait RulesMapper
         'numeric' => NumericRule::class,
         'integer' => IntegerRule::class,
         'float' => FloatRule::class,
+        'unique' => UniqueRule::class,
+        'exists' => ExistsRule::class,
     ];
 
     public static function resolve(string $rule, $params)
