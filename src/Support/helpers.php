@@ -1,6 +1,8 @@
 <?php
 
 use Mahmoud\ScandiwebTask\Application;
+use Mahmoud\ScandiwebTask\Http\Request;
+use Mahmoud\ScandiwebTask\Http\Response;
 
 if (!function_exists('env')) {
     function env($key, $default = null)
@@ -58,11 +60,56 @@ if (!function_exists('config')) {
     }
 }
 
+if (!function_exists('request')) {
+    function request($key = null)
+    {
+        $instance = new Request();
+
+        if ($key) {
+            return $instance->get($key);
+        }
+
+        if (is_array($key)) {
+            return app()->config->only($key);
+        }
+
+        return $instance;
+    }
+}
+
+if (!function_exists('response')) {
+    function response()
+    {
+        $instance = new Response();
+
+        return $instance;
+    }
+}
+
+if (!function_exists('back')) {
+    function back()
+    {
+        return response()->back();
+    }
+}
+
+if (!function_exists('abort')) {
+    function abort($code, $message = '', array $params = [])
+    {
+        $response = response();
+        $response->setStatusCode($code);
+
+        echo $response->json(array_merge(['message' => $message], $params));
+
+        exit;
+    }
+}
+
 if (!function_exists('class_basename')) {
     function class_basename($class)
     {
         $class = is_object($class) ? get_class($class) : $class;
 
-        return basename(str_replace('\\','/', $class));
+        return basename(str_replace('\\', '/', $class));
     }
 }

@@ -2,15 +2,17 @@
 
 namespace App\Controllers;
 
+use Mahmoud\ScandiwebTask\Http\Request;
+
 class ProductController
 {
-	public function index()
+    public function index()
     {
-        echo "Product List";
+        return "Product List";
     }
 
     public function store()
     {
-        echo "Add Product";
+        return "Add Product";
     }
 }
