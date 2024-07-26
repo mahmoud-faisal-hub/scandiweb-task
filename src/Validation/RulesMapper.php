@@ -6,6 +6,7 @@ use Mahmoud\ScandiwebTask\Validation\Rules\AlphaNumericalRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\BetweenRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\ExistsRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\FloatRule;
+use Mahmoud\ScandiwebTask\Validation\Rules\InRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\IntegerRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\MaxRule;
 use Mahmoud\ScandiwebTask\Validation\Rules\MinRule;
@@ -28,6 +29,7 @@ trait RulesMapper
         'numeric' => NumericRule::class,
         'integer' => IntegerRule::class,
         'float' => FloatRule::class,
+        'in' => InRule::class,
         'unique' => UniqueRule::class,
         'exists' => ExistsRule::class,
     ];

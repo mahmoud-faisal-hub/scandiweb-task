@@ -1,5 +1,6 @@
 <?php
 
+use App\Factories\Products\ProductStrategyFactory;
 use Dotenv\Dotenv;
 
 require_once __DIR__ . '/../src/Support/helpers.php';
@@ -10,3 +11,5 @@ $env = Dotenv::createImmutable(base_path());
 $env->load();
 
 app()->run();
+
+// dump(ProductStrategyFactory::make("Furniture")->attributesValidation());

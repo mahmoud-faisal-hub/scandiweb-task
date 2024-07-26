@@ -20,7 +20,6 @@ class Request
 
     public function all()
     {
-
         return $_REQUEST;
     }
 
@@ -32,5 +31,10 @@ class Request
     public function get($key)
     {
         return Arr::get($this->all(), $key);
+    }
+
+    public function has($key)
+    {
+        return Arr::has($this->all(), $key);
     }
 }
