@@ -10,3 +10,7 @@ Route::get("/", function () {
 Route::get("/products", [ProductController::class, "index"]);
 
 Route::post("/products", [ProductController::class, "store"]);
+
+Route::delete("/products/bulk", [ProductController::class, "bulkDelete"]);
+
+Route::delete("/products/{id}", [ProductController::class, "delete"]);

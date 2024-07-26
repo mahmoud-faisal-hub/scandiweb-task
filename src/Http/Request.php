@@ -3,6 +3,7 @@
 namespace Mahmoud\ScandiwebTask\Http;
 
 use Mahmoud\ScandiwebTask\Support\Arr;
+use Mahmoud\ScandiwebTask\Support\Str;
 
 class Request
 {
@@ -20,7 +21,16 @@ class Request
 
     public function all()
     {
-        return $_REQUEST;
+        $requestParam = $_REQUEST;
+        $requestBody = file_get_contents('php://input');
+
+        if (Str::isJson($requestBody)) {
+            $requestBody = json_decode($requestBody, true);
+        } else {
+            $requestBody = [];
+        }
+
+        return array_merge($requestParam, $requestBody);
     }
 
     public function only($keys)

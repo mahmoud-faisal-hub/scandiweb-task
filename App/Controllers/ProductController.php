@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Factories\Products\ProductStrategyFactory;
 use App\Models\Product;
 use App\Validators\Product\StoreProductValidator;
+use Mahmoud\ScandiwebTask\Validation\Validator;
 
 class ProductController
 {
@@ -24,7 +25,7 @@ class ProductController
         $validator = (new StoreProductValidator())->validate();
 
         if (!$validator->passes()) {
-            return response()->json($validator->errors());
+            abort(422, reset($validator->errors())[0], $validator->errors());
         }
 
         $productStrategy = ProductStrategyFactory::make(request()->get('type'));
@@ -38,5 +39,38 @@ class ProductController
         ]);
 
         abort(201, 'Created');
+    }
+
+    public function delete($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            abort(404, "This product doesn't exist");
+        }
+
+        $product->delete();
+
+        abort(200, 'Deleted');
+    }
+
+    public function bulkDelete()
+    {
+        $validator = new Validator();
+
+        $validator->setRules([
+            'ids' => 'required|array',
+            'ids.*' => 'required|integer|exists:products,id'
+        ]);
+
+        $validator->make(request()->all());
+
+        if (!$validator->passes()) {
+            abort(422, reset($validator->errors())[0], $validator->errors());
+        }
+
+        Product::whereIn('id', request()->get('ids'))->delete();
+
+        abort(200, 'Deleted');
     }
 }
