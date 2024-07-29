@@ -21,7 +21,7 @@ class FurnitureStrategy implements ProductStrategyInterface
             'height.required' => 'required error',
             'height.numeric' => 'numeric error',
             'width.required' => 'required error',
-            'width.numeric' => 'numeric error',
+            'width.numeric' => 'numeric error', 
             'length.required' => 'required error',
             'length.numeric' => 'numeric error',
         ];
