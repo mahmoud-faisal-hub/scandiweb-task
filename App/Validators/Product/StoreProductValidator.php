@@ -16,8 +16,8 @@ class StoreProductValidator extends RequestValidator
             'type' => 'required|in:' . implode(',', ProductStrategyFactory::getTypes()),
         ];
 
-        $productStrategy = ProductStrategyFactory::make(request()->get('type'));
         if (request()->has('type') && in_array(request()->get('type'), ProductStrategyFactory::getTypes())) {
+            $productStrategy = ProductStrategyFactory::make(request()->get('type'));
             $rules = array_merge($rules, $productStrategy->attributesValidation());
         }
 
