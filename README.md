@@ -11,6 +11,14 @@ Make sure to install the dependencies:
 composer install
 ```
 
+Create a database and import the mysql database form `database.sql` file
+
+```bash
+# On Linux(Ubuntu) OR WSL
+mysql -h localhost -u username -p database_name < database.sql
+```
+*The products table have a column called `attributes` of type `json` that is supproted in MySql: 5.7 or higher*
+
 Configure a `.env` file
 
 ```env
