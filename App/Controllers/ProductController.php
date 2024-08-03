@@ -14,7 +14,11 @@ class ProductController
         $products = Product::all();
 
         foreach ($products as &$product) {
-            $product->attributes = json_decode($product->attributes);
+            $strategy = ProductStrategyFactory::make($product->type);
+            $attributes = json_decode($product->attributes, true);
+
+            $product->attributes = $attributes;
+            $product->formated_attributes = $strategy->formatAttributes($attributes);
         }
 
         return response()->json($products);

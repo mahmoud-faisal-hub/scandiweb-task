@@ -27,4 +27,9 @@ class BookStrategy implements ProductStrategyInterface
             'weight' => $data['weight']
         ];
     }
+
+    public function formatAttributes(array $data): string
+    {
+        return 'Weight: ' . $data['weight'] . 'KG';
+    }
 }

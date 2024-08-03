@@ -27,4 +27,9 @@ class DVDStrategy implements ProductStrategyInterface
             'size' => $data['size']
         ];
     }
+
+    public function formatAttributes(array $data): string
+    {
+        return 'Size: ' . $data['size'] . ' MB';
+    }
 }

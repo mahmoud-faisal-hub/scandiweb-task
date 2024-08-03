@@ -35,4 +35,9 @@ class FurnitureStrategy implements ProductStrategyInterface
             'length' => $data['length']
         ];
     }
+
+    public function formatAttributes(array $data): string
+    {
+        return 'Dimentions: ' . $data['height'] . 'x' . $data['width'] . 'x' . $data['length'];
+    }
 }
